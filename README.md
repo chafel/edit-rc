@@ -16,9 +16,48 @@ Want to edit react component and generate a page with preview instantly?
 
 # How
 
-以下将通过对 AntD 项目中展示类组件的编辑来说明实现过程。以 Avatar 为例，组件需要 icon 
+以下将通过对 AntD 项目中展示类组件的编辑来说明实现过程。以 Avatar 为例，组件需要 icon、shape、size、src、srcSet、alt 和 onError 属性，分类一下：
 
+|分类|属性|属性元类型|
+|--|--|--|
+|text|icon、alt|string|
+|select|shape、size|Enum|
+|link|src、srcSet|string|
+|function|onError|function|
 
+_注：本质上数字和链接这样的文本输入都可以简化为 text，但分开更容易做样式优化和类型验证这样的特殊处理_
+
+#### 第一步
+将以上分类信息挂载到组件上，这时我们约定如下格式的对象：
+```
+Avatar.info = {
+  props: {
+    icon: { type: 'text' },
+    shape: { 
+      type: 'select',
+      options: ['circle', 'square']  
+    },
+    size: { 
+      type: 'select',
+      options: ['large', 'small', 'default'] 
+    },
+    src: { type: 'link' },
+    srcSet: { type: 'link' },
+    alt: { type: 'text' },
+    onError: { type: 'function' },
+  },
+};
+```
+
+#### 第二步
+在编辑页面的页面遍历以上信息来生成编辑表单：
+```
+function getFormItems(info) {
+  return Object.keys(info.props).map(prop => {
+      
+  })
+}
+```
 
 # Next
 
