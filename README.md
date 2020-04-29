@@ -54,10 +54,31 @@ Avatar.info = {
 ```
 function getFormItems(info) {
   return Object.keys(info.props).map(prop => {
-      
+      // 判断 prop 的 type 并渲染表单项
   })
 }
 ```
+表单项的渲染过程参考 [storybook/knobs-addon](https://github.com/storybookjs/storybook/tree/master/addons/knobs) 
+从而实现以下控制组件的效果：
+![knobs-effect](https://www.learnstorybook.com/design-systems-for-developers/storybook-addon-knobs.gif)
+
+#### 第三步
+表单编辑过程由于编辑平台也是 React 应用，直接引入组件库 `Groot`，遍历添加的组件即可创建组件，所需的 `props` 从表单获取即可：
+```
+[
+ {
+  componentName: 'aComponent',
+  props: { foo: 1, bar: 2 }
+ }, {
+  componentName: 'bComponent',
+  props: { foo: 3, bar: 4 }
+ }
+].map(item => React.createElement(Groot[item.componentName], item.props)) 
+```
+把渲染数据做好状态管理从而实现_所见即所得_的效果。
+
+#### 第四步
+完成后点击预览，数据同步到后端，采用前后端同构的 SSR 渲染，即可产出 HTML 文件。跟 [jamstack](https://jamstack.org/) 异曲同工。
 
 # Next
 
